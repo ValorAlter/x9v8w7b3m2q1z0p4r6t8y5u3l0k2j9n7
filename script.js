@@ -1,10 +1,9 @@
 function setViewportHeight() {
-  // calcula 1% da altura da viewport visível
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-// Executa ao carregar e quando ajustar a tela/orientação
+// Atualiza o valor da viewport
 window.addEventListener('load', setViewportHeight);
 window.addEventListener('resize', setViewportHeight);
 window.addEventListener('orientationchange', setViewportHeight);
@@ -13,11 +12,14 @@ const seal = document.getElementById('seal');
 const topFlap = document.getElementById('envelopeTop');
 const letter = document.getElementById('letter');
 const spoiler = document.getElementById('spoiler');
+const container = document.querySelector('.envelope-container');
 
 seal.addEventListener('click', () => {
   topFlap.classList.add('open');
   letter.classList.add('show');
   seal.style.display = 'none';
+
+  container.style.height = 'auto';
 
   spoiler.style.display = 'block';
 
