@@ -61,7 +61,7 @@
     /* SELO */
     .seal {
       position: absolute;
-      bottom: 130px;
+      bottom: 120px;
       left: 50%;
       transform: translateX(-50%);
       width: 100px;
@@ -149,10 +149,23 @@
       font-family: 'Quicksand', sans-serif;
     }
 
+    /* 📱 MOBILE FIX */
     @media (max-width: 700px) {
-      .envelope-container { width: 90%; height: 320px; }
-      .seal { width: 80px; height: 80px; font-size: 32px; bottom: 100px; }
-      .letter { font-size: 18px; padding: 25px 18px; }
+      .envelope-container { 
+        width: 95%; 
+        height: 480px; /* mais alto para não achatar */
+      }
+      .seal { 
+        width: 80px; 
+        height: 80px; 
+        font-size: 32px; 
+        bottom: 90px; /* sempre visível */
+      }
+      .letter { 
+        font-size: 18px; 
+        padding: 25px 18px; 
+        height: 65%; /* altura ajustada para caber bem */
+      }
     }
   </style>
 </head>
