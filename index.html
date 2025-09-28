@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Para Você</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&display=swap" rel="stylesheet" />
   <style>
@@ -10,13 +10,14 @@
 
     body {
       background: linear-gradient(135deg, #f0e6dc, #e8d7c5);
-      min-height: 100vh;
+      min-height: 100%; /* não fixa no viewport */
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Quicksand', sans-serif;
-      padding: 20px;
+      padding: 40px 20px; /* centraliza mas deixa espaço para zoom */
       overflow-x: hidden;
+      overflow-y: auto; /* libera rolagem global */
     }
 
     /* ENVELOPE */
@@ -25,6 +26,7 @@
       width: 600px;
       height: 400px;
       perspective: 1200px;
+      margin: auto; /* centraliza no scroll */
     }
 
     .envelope-body {
@@ -153,18 +155,18 @@
     @media (max-width: 700px) {
       .envelope-container { 
         width: 95%; 
-        height: 480px; /* mais alto para não achatar */
+        height: 480px; 
       }
       .seal { 
         width: 80px; 
         height: 80px; 
         font-size: 32px; 
-        bottom: 90px; /* sempre visível */
+        bottom: 90px; 
       }
       .letter { 
         font-size: 18px; 
         padding: 25px 18px; 
-        height: 65%; /* altura ajustada para caber bem */
+        height: 65%; 
       }
     }
   </style>
