@@ -6,165 +6,140 @@
   <title>Para Você</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: linear-gradient(135deg, #f0e6dc, #e8d7c5);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-family: 'Quicksand', sans-serif;
-      overflow-x: hidden;
       padding: 20px;
+      overflow-x: hidden;
     }
 
+    /* ENVELOPE */
     .envelope-container {
       position: relative;
-      width: 90%;
-      max-width: 650px;
-      max-height: 380px;
-      background: #fdf8f3;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
-      overflow: hidden; /* corrigido de visible para hidden */
-      perspective: 1400px;
-      border: 1px solid #d9cbb2;
-      transform-style: preserve-3d;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: max-height 0.6s ease;
-      will-change: max-height;
-    }
-    
-    .envelope-container.open {
-      max-height: 1500px; 
+      width: 600px;
+      height: 400px;
+      perspective: 1200px;
     }
 
-    .envelope-top {
+    .envelope-body {
+      width: 100%;
+      height: 100%;
+      background: #fffdf9;
+      border: 2px solid #d9cbb2;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .envelope-flap {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background: linear-gradient(to bottom, #f5e8d8, #e9d9c3);
-      clip-path: polygon(0 0, 100% 0, 50% 70%);
+      clip-path: polygon(0 0, 100% 0, 50% 60%);
+      border-bottom: 2px solid #cbb89e;
       transform-origin: top center;
-      transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-      z-index: 5;
-      border-bottom: 1px solid #cbb89e;
-      backface-visibility: hidden;
-      will-change: transform;
-    }
-
-    .envelope-top.open {
-      transform: rotateX(-170deg) scaleY(1.05);
-    }
-
-    .seal {
-      position: absolute;
-      top: 150px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 80px;
-      background: radial-gradient(circle at 30% 30%, #d1a948, #a57c1b);
-      border-radius: 50%;
-      z-index: 10;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 0 8px rgba(255, 255, 255, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease;
-      font-family: 'Dancing Script', cursive;
-    }
-
-    .seal:hover {
-      transform: translateX(-50%) scale(1.1);
-    }
-
-    .letter {
-      position: relative;
-      width: 100%;
-      background: #fffdf9;
-      padding: 60px 30px;
-      box-sizing: border-box;
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 1.2s ease, opacity 1s ease;
+      transition: transform 1s ease-in-out;
       z-index: 3;
-      font-size: 24px;
-      color: #4a3b2f;
-      border-radius: 12px;
-      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
-      font-family: 'Dancing Script', cursive;
-      line-height: 2;
-      text-align: center;
-      background-image: url('https://www.transparenttextures.com/patterns/fancy-paper.png');
-      will-change: opacity, max-height;
+      cursor: pointer;
     }
 
-    .letter.show {
-      max-height: 1500px;
-      opacity: 1;
-      animation: none;
-    }
-
-    .envelope-container::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-      opacity: 0.08;
+    .envelope-flap.open {
+      transform: rotateX(-160deg);
       z-index: 1;
     }
 
-    .petal {
+    /* SELO */
+    .seal {
       position: absolute;
-      width: 20px;
-      height: 20px;
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle at 30% 30%, #d1a948, #a57c1b);
+      border-radius: 50%;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      font-size: 40px;
+      font-family: 'Dancing Script', cursive;
+      color: white;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.35), inset 0 0 8px rgba(255,255,255,0.4);
+      cursor: pointer;
+      z-index: 4;
+      transition: transform 0.2s ease;
+    }
+    .seal:hover { transform: translateX(-50%) scale(1.1); }
+
+    /* CARTA */
+    .letter {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 70%; /* altura visível */
+      background: #fffefc url('https://www.transparenttextures.com/patterns/fancy-paper.png');
+      padding: 40px 30px;
+      font-size: 22px;
+      font-family: 'Dancing Script', cursive;
+      color: #4a3b2f;
+      line-height: 2;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      transition: top 1s ease;
+      z-index: 2;
+      overflow-y: auto; /* rolagem vertical */
+    }
+
+    .letter.show {
+      top: 10%;
+    }
+
+    /* ESTILO DA SCROLLBAR */
+    .letter::-webkit-scrollbar {
+      width: 10px;
+    }
+    .letter::-webkit-scrollbar-track {
+      background: #f0e6dc;
+      border-radius: 10px;
+    }
+    .letter::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #d1a948, #a57c1b);
+      border-radius: 10px;
+    }
+    .letter::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #b88a1f, #8a6716);
+    }
+
+    /* PETALAS */
+    .petal {
+      position: fixed;
+      width: 20px; height: 20px;
       background: pink;
       border-radius: 50% 50% 50% 0;
       transform: rotate(45deg);
-      opacity: 0.7;
-      animation: fall 5s linear forwards;
-      z-index: 20;
+      opacity: 0.8;
+      animation: fall 6s linear forwards;
+      z-index: 99;
+      pointer-events: none;
     }
-
     @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(600px) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(-20px) scale(0.9) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(700px) scale(1.2) rotate(360deg); opacity: 0; }
     }
 
-    @media (max-width: 600px) {
-      .seal {
-        top: 130px;
-        width: 70px;
-        height: 70px;
-        font-size: 24px;
-      }
-      .letter {
-        font-size: 20px;
-        padding: 30px 15px;
-      }
-    }
-
+    /* SPOILER */
     #spoiler {
       display: none;
       margin-top: 20px;
@@ -173,62 +148,72 @@
       text-align: center;
       font-family: 'Quicksand', sans-serif;
     }
+
+    @media (max-width: 700px) {
+      .envelope-container { width: 90%; height: 320px; }
+      .seal { width: 80px; height: 80px; font-size: 32px; bottom: 100px; }
+      .letter { font-size: 18px; padding: 25px 18px; }
+    }
   </style>
 </head>
 <body>
-  <div class="envelope-container" id="envelopeContainer">
-    <div class="envelope-top" id="envelopeTop"></div>
-
-    <div class="seal" id="seal">💛</div>
-
-    <div class="letter" id="letter">
-      <p>
-        A você Giovanna, motivo da minha dedicação e expiração.<br /><br />
-        Essa foi a forma que encontrei para te dizer,<br /><br />
-        As coisas não têm estado tão bem quanto eu queria que estivessem, mas isso não é desculpa.<br /><br />
-        Deixei de dar a atenção que jurei a mim mesmo que nunca deixaria de dar, e por isso peço desculpas.<br /><br />
-        Tenho lido um pouco, e vi um trecho que me fez lembrar de você<br /><br />
-        Como disse Sophia de Mello:<br />
-        "Você é o mar e a flor, o vento e o silêncio"<br />
-        "É tudo aquilo que o mundo esqueceu de nomear".<br />
-        Você é essa presença única e essencial que está além de qualquer definição.<br />
-        Com todo meu coração,<br />
-        💖 Alguém que nunca deixou de pensar em você.
-      </p>
+  <div class="envelope-container">
+    <div class="envelope-body">
+      <div class="envelope-flap" id="flap"></div>
+      <div class="seal" id="seal">💛</div>
+      <div class="letter" id="letter">
+        <p>
+          A você Giovanna, motivo da minha dedicação e expiração.<br><br>
+          Essa foi a forma que encontrei para te dizer:<br><br>
+          As coisas não têm estado tão bem quanto eu queria que estivessem, mas isso não é desculpa.<br><br>
+          Deixei de dar a atenção que jurei a mim mesmo que nunca deixaria de dar, e por isso peço desculpas.<br><br>
+          Tenho lido um pouco, e vi um trecho que me fez lembrar de você:<br><br>
+          "Você é o mar e a flor, o vento e o silêncio"<br>
+          "É tudo aquilo que o mundo esqueceu de nomear".<br><br>
+          Você é essa presença única e essencial que está além de qualquer definição.<br><br>
+          Com todo meu coração,<br>
+          💖 Alguém que nunca deixou de pensar em você.
+        </p>
+        <p>
+          (Sim, tem mais coisa aqui embaixo 👀)<br><br>
+          Se você rolou até aqui, saiba que eu realmente me esforcei para que esse detalhe fosse especial.<br><br>
+          E se sorriu um pouquinho, já valeu a pena. ✨
+        </p>
+      </div>
     </div>
+    <p id="spoiler">Spoiler: Você é a primeira pessoa que me fez começar a ler poesia. 🤡</p>
   </div>
 
-  <p id="spoiler">Spoiler: Você é a primeira pessoa que me fez começar a ler poesia. 🤡</p>
-
   <script>
-    const seal = document.getElementById('seal');
-    const topFlap = document.getElementById('envelopeTop');
-    const letter = document.getElementById('letter');
-    const spoiler = document.getElementById('spoiler');
-    const container = document.getElementById('envelopeContainer');
+    const seal = document.getElementById("seal");
+    const flap = document.getElementById("flap");
+    const letter = document.getElementById("letter");
+    const spoiler = document.getElementById("spoiler");
 
-    seal.addEventListener('click', () => {
-      topFlap.classList.add('open');
-      letter.classList.add('show');
-      seal.style.display = 'none';
+    function openEnvelope() {
+      flap.classList.add("open");
+      letter.classList.add("show");
+      seal.style.display = "none";
+      spoiler.style.display = "block";
 
-      container.classList.add('open');
-
-      spoiler.style.display = 'block';
-
-      for (let i = 0; i < 30; i++) {
-        setTimeout(() => createPetal(), i * 150);
-      }
-    });
+      let petals = 0;
+      const interval = setInterval(() => {
+        createPetal();
+        petals++;
+        if (petals >= 25) clearInterval(interval);
+      }, 200);
+    }
 
     function createPetal() {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.top = '-20px';
+      const petal = document.createElement("div");
+      petal.classList.add("petal");
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = (4 + Math.random() * 3) + "s";
       document.body.appendChild(petal);
-      setTimeout(() => petal.remove(), 6000);
+      setTimeout(() => petal.remove(), 7000);
     }
+
+    seal.addEventListener("click", openEnvelope);
   </script>
 </body>
 </html>
